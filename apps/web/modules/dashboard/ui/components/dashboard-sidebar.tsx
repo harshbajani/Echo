@@ -71,6 +71,10 @@ export const DahsboardSidebar = () => {
                   <SidebarMenuButton
                     asChild
                     tooltip={item.title}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
                     isActive={isActive(item.url)}
                   >
                     <Link href={item.url}>
@@ -93,6 +97,10 @@ export const DahsboardSidebar = () => {
                   <SidebarMenuButton
                     asChild
                     tooltip={item.title}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
                     isActive={isActive(item.url)}
                   >
                     <Link href={item.url}>
@@ -115,6 +123,10 @@ export const DahsboardSidebar = () => {
                   <SidebarMenuButton
                     asChild
                     tooltip={item.title}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
                     isActive={isActive(item.url)}
                   >
                     <Link href={item.url}>
