@@ -7,6 +7,8 @@ import {
   Palette,
 } from "lucide-react";
 
+export const STATUS_FILTER_KEY = "echo-status-filter";
+
 export const customerSupportItems = [
   {
     title: "Conversations",
