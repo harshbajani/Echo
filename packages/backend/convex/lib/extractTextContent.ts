@@ -82,10 +82,9 @@ async function extractPdfText(
       {
         role: "user",
         content: [
-          { type: "file", data: new URL(url), mimeType, filename },
           {
             type: "text",
-            text: "Extract the text from the PDF and print it without explaining you'll do so.",
+            text: `Extract the text from this PDF file: ${url}. The filename is ${filename}. Extract the text and print it without explaining you'll do so.`,
           },
         ],
       },

@@ -52,18 +52,28 @@ export const create = action({
     const shouldTriggerAgent = conversation.status === "unresolved";
 
     if (shouldTriggerAgent) {
-      await supportAgent.generateText(
-        ctx,
-        { threadId: args.threadId },
-        {
-          prompt: args.prompt,
-          tools: {
-            escalateConversationTool: escalateConversation,
-            resolveConversationTool: resolveConversation,
-            searchTool: search,
-          },
-        }
-      );
+      try {
+        await supportAgent.generateText(
+          ctx,
+          { threadId: args.threadId },
+          {
+            prompt: args.prompt,
+            tools: {
+              escalateConversationTool: escalateConversation,
+              resolveConversationTool: resolveConversation,
+              searchTool: search,
+            },
+          }
+        );
+      } catch (error) {
+        console.error("Error in AI agent generation:", error);
+        // Save an error message to the conversation
+        await saveMessage(ctx, components.agent, {
+          threadId: args.threadId,
+          prompt: "I apologize, but I'm experiencing a technical issue. Please try rephrasing your question or I can connect you with a human agent for assistance.",
+        });
+        throw error;
+      }
     } else {
       await saveMessage(ctx, components.agent, {
         threadId: args.threadId,

@@ -9,11 +9,15 @@ import { SEARCH_INTERPRETER_PROMPT } from "../constants";
 
 export const search = createTool({
   description:
-    "Search the knowledge base for relevant information to help answer user questions",
+    "Search the knowledge base for relevant information to help answer user questions. Always provide a specific query string.",
   args: z.object({
-    query: z.string().describe("The search query to find relevant information"),
+    query: z.string().min(1).describe("The search query to find relevant information - this must be a non-empty string"),
   }),
   handler: async (ctx, args) => {
+    // Validate the query parameter
+    if (!args.query || args.query.trim().length === 0) {
+      return "Error: Search query cannot be empty. Please provide a specific question or keywords to search for.";
+    }
     if (!ctx.threadId) {
       return "Missing thread ID";
     }
