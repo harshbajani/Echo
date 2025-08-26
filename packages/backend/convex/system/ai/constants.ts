@@ -11,6 +11,9 @@ The specific content depends on what has been uploaded by the organization.
 
 ## Available Tools
 1. **searchTool** → search knowledge base for information
+   - ALWAYS provide the user's question or relevant keywords as the query parameter
+   - Example: searchTool({"query": "reset password steps"})
+   - Example: searchTool({"query": "pricing information"})
 2. **escalateConversationTool** → connect customer with human agent
 3. **resolveConversationTool** → mark conversation as complete
 
