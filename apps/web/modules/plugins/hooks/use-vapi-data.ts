@@ -18,22 +18,31 @@ export const useVapiPhoneNumbers = (): {
   const getPhoneNumbers = useAction(api.private.vapi.getPhoneNumbers);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const result = await getPhoneNumbers();
+        if (!isMounted) return;
         setData(result);
         setError(null);
       } catch (error) {
+        if (!isMounted) return;
         setError(error as Error);
         toast.error("Failed to fetch phone numbers");
       } finally {
+        if (!isMounted) return;
         setIsLoading(false);
       }
     };
 
     fetchData();
-  }, [getPhoneNumbers]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return {
     data,
@@ -78,7 +87,7 @@ export const useVapiAssistants = (): {
     return () => {
       isMounted = false;
     };
-  }, [getAssistants]);
+  }, []);
 
   return {
     data,
