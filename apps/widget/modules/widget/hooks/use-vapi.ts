@@ -21,36 +21,35 @@ export const useVapi = () => {
     if (!vapiSecrets) return;
 
     const vapiInstance = new Vapi(vapiSecrets.publicApiKey);
-    const vapi = new Vapi("");
 
-    setVapi(vapi);
+    setVapi(vapiInstance);
 
-    vapi.on("call-start", () => {
+    vapiInstance.on("call-start", () => {
       setIsConnected(true);
       setIsConnecting(false);
       setTranscript([]);
     });
 
-    vapi.on("call-end", () => {
+    vapiInstance.on("call-end", () => {
       setIsConnected(false);
       setIsConnecting(false);
       setIsSpeaking(false);
     });
 
-    vapi.on("speech-start", () => {
+    vapiInstance.on("speech-start", () => {
       setIsSpeaking(true);
     });
 
-    vapi.on("speech-end", () => {
+    vapiInstance.on("speech-end", () => {
       setIsSpeaking(false);
     });
 
-    vapi.on("error", (error) => {
+    vapiInstance.on("error", (error) => {
       console.log(error, "VAPI_ERROR");
       setIsConnecting(false);
     });
 
-    vapi.on("message", (message) => {
+    vapiInstance.on("message", (message) => {
       if (message.type === "transcript" && message.transcriptType === "final") {
         setTranscript((prev) => [
           ...prev,
