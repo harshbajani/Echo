@@ -47,9 +47,18 @@ export const create = action({
       });
     }
 
-    // Implement subscription check
+    // This refreshes the user's session if they're within the threshold
+    await ctx.runMutation(internal.system.contactSessions.refresh, {
+      contactSessionId: args.contactSessionId,
+    });
 
-    const shouldTriggerAgent = conversation.status === "unresolved";
+    const subscription = await ctx.runQuery(
+      internal.system.subscriptions.getByOrganizationId,
+      { organizationId: conversation.organizationId }
+    );
+
+    const shouldTriggerAgent =
+      conversation.status === "unresolved" && subscription?.status === "active";
 
     if (shouldTriggerAgent) {
       try {
@@ -70,7 +79,8 @@ export const create = action({
         // Save an error message to the conversation
         await saveMessage(ctx, components.agent, {
           threadId: args.threadId,
-          prompt: "I apologize, but I'm experiencing a technical issue. Please try rephrasing your question or I can connect you with a human agent for assistance.",
+          prompt:
+            "I apologize, but I'm experiencing a technical issue. Please try rephrasing your question or I can connect you with a human agent for assistance.",
         });
         throw error;
       }
