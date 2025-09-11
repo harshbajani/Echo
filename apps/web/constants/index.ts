@@ -73,7 +73,7 @@ export const integrations = [
 
 export type IntegrationId = (typeof integrations)[number]["id"];
 
-export const HTML_SCRIPT = `<script src="http://localhost:3001/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
-export const REACT_SCRIPT = `<script src="http://localhost:3001/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
-export const NEXTJS_SCRIPT = `<script src="http://localhost:3001/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
-export const JAVASCRIPT_SCRIPT = `<script src="http://localhost:3001/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
+export const HTML_SCRIPT = `<script src="https://echo-widget-red.vercel.app/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
+export const REACT_SCRIPT = `<script src="https://echo-widget-red.vercel.app/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
+export const NEXTJS_SCRIPT = `<script src="https://echo-widget-red.vercel.app/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
+export const JAVASCRIPT_SCRIPT = `<script src="https://echo-widget-red.vercel.app/widget.js" data-organization-id="{{ORGANIZATION_ID}}"></script>`;
